@@ -1,0 +1,29 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components{
+  .btn{
+    @apply bg-gray-200 px-4 h-12
+  }
+  .footer-title{
+    @apply text-[15px] mb-3 inline-block
+  }
+  .footer-link{
+    @apply text-grayText text-[15px] mb-1 hover:text-black inline-block transition-all ease-in-out duration-200
+  }
+}
+@layer base{
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap');
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  html {
+    font-family: 'Noto Sans JP', sans-serif;
+  }
+}
+
+
+
