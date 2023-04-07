@@ -1,36 +1,4 @@
-// import React, {createContext, useState} from 'react'
-// import { products } from '../products';
-
-// export const ShopContext = createContext(null)
-
-// const getDefaultCart = () =>{
-//     let cart = {};
-//     for (let i=1; i<products.length; i++){
-//         cart[i] = 0
-//     }
-//     return cart; 
-// }
-
-// const ShopContextProvider = (props) => {
-//     const [cartItems, setCartItems] = useState(getDefaultCart())
-
-//     const addToCart = (itemId) =>{
-//         setCartItems((prev)=>({...prev, [itemId]: prev[itemId] + 1}))
-//     }
-
-//     const removeFromCart = (itemId) =>{
-//         setCartItems((prev)=>({...prev, [itemId]: prev[itemId] - 1}))
-//     }
-// console.log(cartItems);
-//     const contextValue = {cartItems, addToCart, removeFromCart}
-//     return (<ShopContext.Provider value={contextValue}>{props.children}</ShopContext.Provider>
-//   )
-// }
-
-// export default ShopContextProvider;
-
-
-import React, { createContext, useState } from 'react'
+import React, { createContext } from 'react'
 import { products } from '../products';
 import useLocalStorageState from '../hooks/useLocalStorageState';
 
@@ -69,29 +37,33 @@ const ShopContextProvider = (props) => {
         }
     }
     
-    
     const incrementCartItem = (itemId) => {
-        setCart(prevCart => {
-            const updatedCart = prevCart.map(item => {
-                if (item.id === itemId) {
-                    return { ...item, numberOfUnit: item.numberOfUnit + 1 };
-                }
-                return item;
-            });
-            return updatedCart;
+        const updatedCart = cart.map(item => {
+            if (item.id === itemId) {
+                return { ...item, numberOfUnit: Number(item.numberOfUnit) + 1 };
+            }
+            return item;
         });
+        setCart(updatedCart)
+        // setCart(prevCart => {
+        //     const updatedCart = prevCart.map(item => {
+        //         if (item.id === itemId) {
+        //             return { ...item, numberOfUnit: Number(item.numberOfUnit) + 1 };
+        //         }
+        //         return item;
+        //     });
+        //     return updatedCart;
+        // });
     };
 
     const decrementCartItem = (itemId) => {
-        setCart(prevCart => {
-            const updatedCart = prevCart.map(item => {
-                if (item.id === itemId && item.numberOfUnit > 1) {
-                    return { ...item, numberOfUnit: item.numberOfUnit - 1 };
-                }
-                return item;
-            });
-            return updatedCart;
-        });
+        const updatedCart = cart.map((item) => {
+            if (item.id === itemId && item.numberOfUnit > 1) {
+                return { ...item, numberOfUnit: Number(item.numberOfUnit) - 1 };
+            }
+            return item;
+          });
+          setCart(updatedCart)
     };
 
     const updateCartItem = (itemId, newNumberOfUnits) => {
@@ -104,7 +76,7 @@ const ShopContextProvider = (props) => {
         setCart(updatedCart);
       };
 
-
+    console.log(cart);
     const contextValue = { cart, addToCart, removeFromCart, incrementCartItem, decrementCartItem, updateCartItem }
     return (<ShopContext.Provider value={contextValue}>{props.children}</ShopContext.Provider>
     )
