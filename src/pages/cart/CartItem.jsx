@@ -14,16 +14,16 @@ const CartItem = (props) => {
                 <p className="text-gray-500">${(Number(price) * numberOfUnit).toFixed(2)}</p>
                 <div>
                     <button
-                        className="text-gray-600 focus:outline-none focus:text-gray-700"
+                        className="text-gray-600 focus:outline-none hover:text-gray-700 text-2xl"
                         onClick={() => decrementCartItem(id)}
+                        disabled={numberOfUnit === 1}
                     >-
                     </button>
 
                     <input
                         type="number"
                         min="1" max='99'
-
-                        className="border rounded-md w-16 text-center"
+                        className="border rounded-md w-16 text-center mx-2"
                         value={numberOfUnit}
                         onChange={(e) => {
                             const value = parseInt(e.target.value);
@@ -34,7 +34,7 @@ const CartItem = (props) => {
                     />
 
                     <button
-                        className="text-gray-600 focus:outline-none focus:text-gray-700"
+                        className="text-gray-600 focus:outline-none hover:text-gray-700 text-2xl"
                         onClick={() => incrementCartItem(id)}
                     >+
                     </button>
